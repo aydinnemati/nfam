@@ -1,0 +1,6 @@
+node_modules
+logs
+.nyc_output
+public
+.eslintrc.js
+package-lock.json
