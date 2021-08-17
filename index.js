@@ -23,8 +23,6 @@ const schema = {
 // ####################### //
 
 fastify.register(require('fastify-mongodb'), {
-  // force to close the mongodb connection when app stopped
-  // the default value is false
   forceClose: true,
   url: 'mongodb://127.0.0.1:27017/colt01',
 });
@@ -95,7 +93,6 @@ fastify.get('/api/', (request, reply) => {
     if (err) throw err;
     result.forEach((u) => {
       const user = {
-        // eslint-disable-next-line no-underscore-dangle
         _id: u._id.toString(),
         name: u.name,
         email: u.email,
@@ -123,14 +120,5 @@ fastify.delete('/api/delete-developer/:username', (request, reply) => {
     // return doc;
   });
 });
-
-// // Run the server!
-// fastify.listen(4000, (err, address) => {
-//   if (err) {
-//     fastify.log.error(err);
-//     process.exit(1);
-//   }
-//   fastify.log.info(`server listening on ${address}`);
-// });
 
 module.exports = fastify;
