@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const { test } = require('tap');
 const build = require('./index');
 
