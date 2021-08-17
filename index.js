@@ -22,18 +22,12 @@ const schema = {
 //     db connection       //
 // ####################### //
 
-// ########################################################################### COMMENTED FOR TESTING
-
-// Connection URL
-
 fastify.register(require('fastify-mongodb'), {
   // force to close the mongodb connection when app stopped
   // the default value is false
   forceClose: true,
   url: 'mongodb://127.0.0.1:27017/colt01',
 });
-
-// #################################################################################################
 
 // ####################### //
 //         swagger         //
