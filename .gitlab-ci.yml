@@ -1,0 +1,16 @@
+image: dnd
+
+stages:
+  - build
+  - test
+build-project:
+  stage: build
+  script:
+    - docker network create app-net
+    - docker build -t myapp .
+    - dokcer run -d --network="app-net" mongo:4.0.26
+    - docker run -d -p 4000:4000 --network="app-net" --name app myapp:latest 
+testing:
+  stage: test
+  script:
+    - docker exec -it app '/app/node_modules/.bin/tap --reporter=list --no-check-coverage'
