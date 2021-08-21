@@ -2,7 +2,7 @@ module.exports = {
   apps: [{
     name: 'mongo-api',
     script: './server.js',
-    watch: ['index.js', 'server.js', 'db.js'],
+    // watch: ['index.js', 'server.js', 'db.js'],
     // watch_delay: 1,
     instances: 1,
     // watch: 'true',

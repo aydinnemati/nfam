@@ -1,6 +1,7 @@
 const fastify = require('fastify')({
   logger: true,
 });
+const vars = require('./env');
 
 // ####################### //
 //      user userModel     //
@@ -24,7 +25,7 @@ const schema = {
 
 fastify.register(require('fastify-mongodb'), {
   forceClose: true,
-  url: 'mongodb://127.0.0.1:27017/colt01',
+  url: vars.DB_URL,
 });
 
 // ####################### //

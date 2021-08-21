@@ -5,15 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "tap --reporter=list --no-check-coverage",
-    "start": "./node_modules/nodemon/bin/nodemon.js ./server.js"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "boom": "^7.3.0",
     "fastify": "^3.20.2",
     "fastify-mongodb": "^4.1.0",
-    "fastify-mongoose": "^0.3.0",
     "fastify-plugin": "^3.0.0",
     "fastify-swagger": "^4.8.4",
     "fluent-json-schema": "^3.0.1",
