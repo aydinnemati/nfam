@@ -20,7 +20,7 @@ jobs:
       run: docker build -t myapp .
 
     - name: pull and run mongo
-      run: docker pull mongodb && docker run -d -p 27017:27017 --name mongodb-cont mongo
+      run: docker pull mongo && docker run -d -p 27017:27017 --name mongodb-cont mongo
 
     - name: wait for db to comes up
       run: sleep 10
