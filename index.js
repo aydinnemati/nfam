@@ -83,7 +83,7 @@ fastify.post('/api/create-developer', { schema }, (request, reply) => {
     if (error) {
       return error;
     }
-    return reply.send(`user ${name} added`);
+    reply.send(`user ${name} added`);
   });
 });
 
