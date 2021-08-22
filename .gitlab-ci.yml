@@ -14,18 +14,16 @@ variables:
 
 stages:
   - test
-build-project:
+testing:
   stage: test
   script:
     - docker pull $DB_IMAGE
     - docker network create $NETWORK
     - docker build -t $APP_IMAGE_NAME .
-    - dokcer run -d --network=$NETWORK --name $DB_CONT $DB_IMAGE
+    - docker run -d --network=$NETWORK --name $DB_CONT $DB_IMAGE
     - docker run -d -p 4000:4000 --network=$NETWORK --name $APP_CONT_NAME $APP_IMAGE_NAME
-testing:
-  stage: test
-  script:
-    - docker exec -it app '/app/node_modules/.bin/tap --reporter=list'
-    - docker network rm $NETWORK
+    - docker exec $APP_CONT_NAME npm test
     - docker rm -f $APP_CONT_NAME 
     - docker rm -f $DB_CONT
+    - docker network rm $NETWORK
+
