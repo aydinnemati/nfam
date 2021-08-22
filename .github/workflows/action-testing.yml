@@ -35,7 +35,7 @@ jobs:
       run: docker exec myapp-cont npm test
 
     - name: remove containers
-      run: docker rm -f myapp-cont myapp-cont
+      run: docker rm -f myapp-cont backend_mongo_1
 
     - name: remove network
       run: docker network rm app-net
