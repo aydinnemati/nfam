@@ -17,16 +17,16 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Build the Docker image
-      run: docker build -t myapp .
+      run: docker build -t myapp-image .
 
     - name: pull and run mongo
-      run: docker pull mongo && docker run -d -p 27017:27017 --name mongodb-cont mongo
+      run: docker pull mongo && docker run -d -p 27017:27017 --name backend_mongo_1 mongo
 
     - name: wait for db to comes up
       run: sleep 10
 
     - name: run app container
-      run: docker run -d -p 4000:4000 --restart unless-stopped --name myapp
+      run: docker run -d -p 4000:4000 --restart unless-stopped --name myapp-cont myapp-image 
 
     - name: running tests
       run: docker exec $APP_CONT_NAME npm test

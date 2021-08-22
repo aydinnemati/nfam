@@ -7,7 +7,7 @@ before_script:
   - docker info
 variables:
   DB_IMAGE: mongo:4.0.26
-  DB_CONT: mongodb-cont
+  DB_CONT: backend_mongo_1
   APP_IMAGE_NAME: myapp
   APP_CONT_NAME: app-cont
   NETWORK: app-net 
@@ -21,7 +21,11 @@ testing:
     - docker network create $NETWORK
     - docker build -t $APP_IMAGE_NAME .
     - docker run -d --network=$NETWORK --name $DB_CONT $DB_IMAGE
-    - docker run -d -p 4000:4000 --network=$NETWORK --name $APP_CONT_NAME $APP_IMAGE_NAME
+    - docker run -d --network=$NETWORK -p 4000:4000 --restart unless-stopped --name $APP_CONT_NAME $APP_IMAGE_NAME
+    - sleep 20
+    - docker ps
+    - docker exec $APP_CONT_NAME pwd
+    - docker exec $APP_CONT_NAME ls
     - docker exec $APP_CONT_NAME npm test
     - docker rm -f $APP_CONT_NAME 
     - docker rm -f $DB_CONT
