@@ -1,15 +1,18 @@
-name: acyion-testing
+name: Docker Image CI
 
-on: [push]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
-  
-  job-1-testing-units:
-    env
-    runs-on: ubuntu-latest    
+
+  build:
+
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2      
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-    
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build -t myapp .
