@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: testing units
 
 on:
   push:
@@ -19,14 +19,23 @@ jobs:
     - name: Build the Docker image
       run: docker build -t myapp-image .
 
+    - name: create network
+      run: docker network create app-net
+
     - name: pull and run mongo
-      run: docker pull mongo && docker run -d -p 27017:27017 --name backend_mongo_1 mongo
+      run: docker pull mongo && docker run -d --network=app-net -p 27017:27017 --name backend_mongo_1 mongo
 
     - name: wait for db to comes up
       run: sleep 10
 
     - name: run app container
-      run: docker run -d -p 4000:4000 --restart unless-stopped --name myapp-cont myapp-image 
+      run: docker run -d -p 4000:4000 --network=app-net --restart unless-stopped --name myapp-cont myapp-image 
 
     - name: running tests
-      run: docker exec $APP_CONT_NAME npm test
+      run: docker exec myapp-cont npm test
+
+    - name: remove containers
+      run: docker rm -f myapp-cont myapp-cont
+
+    - name: remove network
+      run: docker network rm app-net
